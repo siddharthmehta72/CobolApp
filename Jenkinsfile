@@ -24,8 +24,4 @@ node {
             sh 'echo "Tests Passed"'
         }
     } 
-    
-    stage('*** Remove Image ***') {
-        sh "docker rmi $registry:$BUILD_NUMBER"
-        } 
 }
