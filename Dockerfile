@@ -1,37 +1,18 @@
-from ubuntu:14.04
+# ubuntu:xenial -> ubuntu 16.04
+FROM ubuntu:xenial
 
-maintainer Ninja <ninja.devops@dev.com>
+workdir /home
 
-
-
-#update and get pre-requisites
+copy . /home
 
 run apt-get update
 
-run apt-get install -y open-cobol
+run apt-get -y install $(cat pkglist)
 
-run apt-get install -y gcc
+run pip3 install -r requirements.txt
 
+run cobc -x -free -o /home/TESTMERGE /home/TESTMERGE.cbl
 
+EXPOSE 80
 
-#copy in the source file
-
-copy TESTMERGE.cbl /TESTMERGE.cbl
-
-copy FILEPAY.TXT /FILEPAY.TXT
-
-copy FILEPAY1.TXT /FILEPAY1.TXT
-
-copy FILEMPAY.TXT /FILEMPAY.TXT
-
-
-
-#compile the code
-
-run cobc -x -free -o TESTMERGE TESTMERGE.cbl
-
-
-
-#run the compiled program
-
-cmd ["/TESTMERGE"]
+CMD ["python3", "app.py"]
