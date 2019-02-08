@@ -2,8 +2,6 @@ from ubuntu:14.04
 
 maintainer Ninja <ninja.devops@dev.com>
 
-
-
 #update and get pre-requisites
 
 run apt-get update
