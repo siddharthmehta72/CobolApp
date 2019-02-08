@@ -1,6 +1,6 @@
-from ubuntu:14.04
+FROM ubuntu:14.04
 
-maintainer Ninja <ninja.devops@dev.com>
+MAINTAINER Ninja <ninja.devops@dev.com>
 
 #update and get pre-requisites
 
