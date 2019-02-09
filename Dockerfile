@@ -1,6 +1,8 @@
 # ubuntu:xenial -> ubuntu 16.04
 FROM ubuntu:xenial
 
+MAINTAINER Ninja <ninja.devops@dev.com>
+
 workdir /home
 
 copy . /home
