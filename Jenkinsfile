@@ -13,15 +13,13 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("sandy1480/docker-test:${env.BUILD_ID}")
+        sh './build.sh''
     }
     
-    stage('*** Test Image ***') {
+    stage('*** Run Container ***') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
-
-        app.inside {
-            sh 'echo "Tests Passed"'
+            sh './run.sh'
         }
     } 
 }
