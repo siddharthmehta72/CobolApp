@@ -13,7 +13,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        sh './build.sh''
+        sh "./build.sh"
     }
     
     stage('*** Run Container ***') {
