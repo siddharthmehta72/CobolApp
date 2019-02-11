@@ -21,5 +21,4 @@ node {
          * For this example, we're using a Volkswagen-type approach ;-) */
             sh './run.sh'
         }
-    } 
 }
