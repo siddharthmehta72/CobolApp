@@ -19,6 +19,6 @@ node {
     stage('*** Run Container ***') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
-            sh './run.sh'
+            sh "./run.sh"
         }
 }
