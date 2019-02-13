@@ -15,6 +15,6 @@ run pip3 install -r requirements.txt
 
 run cobc -x -free -o /home/TESTMERGE /home/TESTMERGE.cbl
 
-EXPOSE 3030
+EXPOSE 8090
 
 CMD ["python3", "app.py"]
