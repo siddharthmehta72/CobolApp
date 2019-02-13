@@ -19,4 +19,4 @@ def hello_endpoint():
     return "Output from Cobol Code : {}".format(output)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3030)
+    app.run(host='0.0.0.0', port=8090)
