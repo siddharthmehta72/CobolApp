@@ -3,15 +3,16 @@
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
-           SELECT  FILEPAY  ASSIGN TO 'FILEPAY.TXT'
+           SELECT  FILEPAY
                ORGANIZATION IS LINE SEQUENTIAL.
-           SELECT  FILEPAY1 ASSIGN TO 'FILEPAY1.TXT'
+           SELECT  FILEPAY1
                ORGANIZATION IS LINE SEQUENTIAL.
-           SELECT  FILEMPAY ASSIGN TO '/output/FILEMPAY.TXT'
+           SELECT  FILEMPAY
                ORGANIZATION IS LINE SEQUENTIAL.
        DATA DIVISION.
        FILE SECTION.
        FD  FILEPAY
+           VALUE OF FILE-ID IS UW01FILE1-NAME
            LABEL RECORDS ARE STANDARD.
        01  FILEHREC.
            03  FILEHRECTYP             PIC XXX.
@@ -42,6 +43,7 @@
            03  FILETTOTAMT            PIC 9(14).
            03  FILLER                 PIC X(54).
        FD  FILEPAY1
+           VALUE OF FILE-ID IS UW01FILE2-NAME
            LABEL RECORDS ARE STANDARD.
        01  FILE1HREC.
            03  FILE1HRECTYP             PIC XXX.
@@ -72,6 +74,7 @@
            03  FILE1TTOTAMT            PIC 9(14).
            03  FILLER                 PIC X(54).
        FD  FILEMPAY
+           VALUE OF FILE-ID IS UW01FILE3-NAME
            LABEL RECORDS ARE STANDARD.
        01  FILEMHREC.
            03  FILEMHRECTYP             PIC XXX.
@@ -111,10 +114,24 @@
        01  UW01CNTTR                   PIC 9(8).
        01  UW01TOTAMT                  PIC 9(14).
        01  UW01TPYAMT                  PIC 9(14).
+       01  UW01FILE1-NAME              PIC X(22).
+       01  UW01FILE2-NAME              PIC X(22).
+       01  UW01FILE3-NAME              PIC X(22).
 
        PROCEDURE DIVISION.
        LA-CONTROL SECTION.
        LA-10.
+           DISPLAY 1 UPON ARGUMENT-NUMBER.
+           ACCEPT UW01FILE1-NAME FROM ARGUMENT-VALUE.
+           DISPLAY 2 UPON ARGUMENT-NUMBER.
+           ACCEPT UW01FILE2-NAME FROM ARGUMENT-VALUE.
+           DISPLAY 3 UPON ARGUMENT-NUMBER.
+           ACCEPT UW01FILE3-NAME FROM ARGUMENT-VALUE.
+
+           DISPLAY 'FILE1:' UW01FILE1-NAME  UPON PRINTER.
+           DISPLAY 'FILE2:' UW01FILE2-NAME  UPON PRINTER.
+           DISPLAY 'FILE3:' UW01FILE3-NAME  UPON PRINTER.
+
            PERFORM LB-MERGE.
        LA-EXIT.
            STOP RUN.
