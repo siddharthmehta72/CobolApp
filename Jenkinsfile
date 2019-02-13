@@ -19,6 +19,9 @@ node {
     stage('*** Run Container ***') {
         /* Ideally, we would run a test framework against our image.
          * For this example, we're using a Volkswagen-type approach ;-) */
-            sh "./run.sh"
-        }
+          withCredentials([usernamePassword(credentialsId: 'fixed', usernameVariable: 'sandy1480', passwordVariable: 'S@ndy1480')]){
+                {
+                    sh("git push http://$username:$password@git.corp.mycompany.com/repo")
+                }
+     }
 }
