@@ -23,5 +23,6 @@ node {
                 {
                     sh("git push http://$username:$password@git.corp.mycompany.com/repo")
                 }
+          }
      }
 }
