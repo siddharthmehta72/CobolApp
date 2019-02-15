@@ -15,7 +15,7 @@ def hello_endpoint():
     file1 = request.args.get('f1')
     file2 = request.args.get('f2')
     file3 = request.args.get('merge')
-    output = subprocess.check_output("/home/TESTMERGE /data/" ,shell=True)
+    output = subprocess.check_output("/home/TESTMERGE" ,shell=True)
     return "Output from Cobol Code : {}".format(output)
 
 if __name__ == '__main__':
