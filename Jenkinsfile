@@ -3,7 +3,7 @@ node {
     environment {
         registry = "sandy1480/docker-test"
     }
-    stage('*** Clone Repository ***') {
+    stage('*** Code CheckOut ***') {
         /* Let's make sure we have the repository cloned to our workspace */
 
         checkout scm
@@ -13,7 +13,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
 
-        app = docker.build("sandy1480/docker-test:${env.BUILD_ID}")
+        sh "./build.sh"
     }
     
     stage('*** Test Image ***') {
