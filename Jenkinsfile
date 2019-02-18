@@ -11,5 +11,10 @@ node {
          * docker build on the command line */
 
         sh "./build.sh"
-    }  
+    }
+    
+    stage('*** Testing Stage ***'){
+        
+        echo "Test Passed"
+    }
 }
