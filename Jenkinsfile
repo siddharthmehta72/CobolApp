@@ -82,4 +82,10 @@ def notifyBuild(String buildStatus = 'STARTED') {
 		  message: summary,
 		  teamDomain: 'NinjaDevOps',
 		  tokenCredentialId: 'slack-id'
+	
+	emailext body: details,
+		 compressLog: true,
+		 recipientProviders: [developers()],
+		 subject: subject,
+		 to: 'sandy1480@gmail.com'
 }
