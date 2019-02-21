@@ -33,7 +33,7 @@ node {
             echo "Test Passed"
         }
 }
-    catch (e)| {
+    catch (e) {
         // If there was an exception thrown, the build failed
         currentBuild.result = 'FAILED'
         throw e
