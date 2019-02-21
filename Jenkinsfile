@@ -78,7 +78,7 @@ def notifyBuild(String buildStatus = 'STARTED') {
 	// Send notifications
 	slackSend (color: colorCode, message: summary)
         slackSend baseUrl: 'https://hooks.slack.com/services/',
-		  channel: 'Jenkins-slack',
+		  channel: 'jenkins-slack',
 		  color: colorCode,
 		  message: summary,
 		  teamDomain: 'NinjaDevOps',
