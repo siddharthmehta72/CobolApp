@@ -13,7 +13,23 @@ node {
          * docker build on the command line */
             echo "Build Stage Starting"
             sh "./build.sh"
-        }        
+        } 
+	 
+         stage('*** Deploy to Container ***'){
+             echo "Deploy Stage Starting" 
+             sh "./run.sh"
+	}	    
+         stage('*** Testing Stage by Postman ***'){
+            echo "Testing Stage Starting"
+            sh "npm install"
+            try {
+                sh "npm run api-test"
+                currentBuild.result = 'SUCCESS'
+            } catch (Exception ex){
+                        currentBuild.result = 'FAILURE'
+                    }
+           junit 'newman.xml'
+        }	    
 }
     catch (e) {
         // If there was an exception thrown, the build failed
