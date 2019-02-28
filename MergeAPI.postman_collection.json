@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "cf222ad6-6e14-4642-ab60-d04c54e60f25",
+		"name": "MergeAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Merge_API",
+			"item": [],
+			"description": "API triggers Cobol Application to merge two files",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "2771b3e3-8aac-4f61-869d-d05e2721957f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "34ecf5cf-8223-4748-b048-35230ca1c263",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "MergeApp",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c0b1ab36-42e8-4d20-96b7-1ed18c8c9bc5",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"var JSON_SCHEMA = {",
+							"  \"$schema\": \"http://json-schema.org/draft-04/schema#\",",
+							"  \"type\": \"object\",",
+							"  \"properties\": {",
+							"    \"output\": {",
+							"      \"type\": \"string\"",
+							"    },",
+							"    \"status\": {",
+							"      \"type\": \"string\"",
+							"    }",
+							"  },",
+							"  \"required\": [",
+							"    \"output\",",
+							"    \"status\"",
+							"  ]",
+							"}",
+							"pm.test(\"Valid Response Schema\", function() {",
+							"  pm.expect(tv4.validate(pm.response.json(), JSON_SCHEMA, false, true)).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Check Output\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.output).to.eql(\"FILE1:/data/FILEPAY.TXT     \\nFILE2:/data/FILEPAY1.TXT    \\nFILE3:/data/FILEMPAY.TXT    \\nMERGE COMPLETED\\n\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"f1\": \"FILEPAY.TXT\",\n    \"f2\": \"FILEPAY1.TXT\",\n    \"merge\": \"FILEMPAY.TXT\"\n}"
+				},
+				"url": {
+					"raw": "52.56.235.71:8090/v1/runcobol",
+					"host": [
+						"52",
+						"56",
+						"235",
+						"71"
+					],
+					"port": "8090",
+					"path": [
+						"v1",
+						"runcobol"
+					]
+				},
+				"description": "Merges Two Files"
+			},
+			"response": []
+		}
+	]
+}
