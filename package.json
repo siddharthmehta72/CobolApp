@@ -1,0 +1,13 @@
+{
+  "name": "api-postman-jenkins",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "api-test": "newman run MergeAPI.postman_collection.json --reporters cli,junit --reporter-junit-export newman.xml"
+  },
+  "author": "Ninja",
+  "license": "ISC",
+  "dependencies": {
+    "newman": "^4.4.0"
+  }
+}
