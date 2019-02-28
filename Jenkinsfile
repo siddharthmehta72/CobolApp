@@ -2,35 +2,37 @@ node {
     
     try {
     
-    stage('*** Code CheckOut ***') {
+         stage('*** Code CheckOut ***') {
         /* Let's make sure we have the repository cloned to our workspace */
             echo "Checking out Source Code"
             checkout scm
         }
         
-        stage('*** Print Env Details ***') {
-            echo "Branch Name: ${env.BRANCH_NAME}"
-			echo "BUILD_NUMBER : ${env.BUILD_NUMBER}"
-			echo "BUILD_ID : ${env.BUILD_ID}"
-			echo "JOB_NAME: ${env.JOB_NAME}"
-			echo "BUILD_TAG : ${env.BUILD_TAG}"
-			echo "EXECUTOR_NUMBER : ${env.EXECUTOR_NUMBER}"
-			echo "NODE_NAME: ${env.NODE_NAME}"
-			echo "NODE_LABELS : ${env.NODE_LABELS}"
-			echo "WORKSPACE : ${env.WORKSPACE}"
-			echo "JENKINS_HOME : ${env.JENKINS_HOME}"
-        }
-
          stage('*** Build Image ***') {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
             echo "Build Stage Starting"
             sh "./build.sh"
         }
-    
-         stage('*** Testing Stage ***'){
         
-            echo "Test Passed"
+         stage('*** Deploy to Container ***'){
+            sh "./run.sh"                    
+        }
+
+    
+         stage('*** Testing Stage by Postman ***'){
+        
+            echo "Testing Stage Starting"
+            sh "npm install"
+            try {
+                sh "npm run api-test"
+                currentBuild.result = 'SUCCESS'
+            } catch (Exception ex){
+                        currentBuild.result = 'FAILURE'
+                    }
+           junit 'newman.xml'
+
+
         }
 }
     catch (e) {
@@ -82,10 +84,4 @@ def notifyBuild(String buildStatus = 'STARTED') {
 		  message: summary,
 		  teamDomain: 'NinjaDevOps',
 		  tokenCredentialId: 'slack-id'
-	
-	emailext body: details,
-		 compressLog: true,
-		 recipientProviders: [developers()],
-		 subject: subject,
-		 to: 'sandy1480@gmail.com'
 }
