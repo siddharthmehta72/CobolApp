@@ -1,5 +1,5 @@
 node {
-    
+       def app
     try {
     
          stage('*** Code CheckOut ***') {
@@ -12,12 +12,12 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
             echo "Build Stage Starting"
-            sh "./build.sh"
+            app = docker.build("cobolpoc:${env.BUILD_ID}")
         } 
 	 
          stage('*** Deploy to Container ***'){
              echo "Deploy Stage Starting" 
-             sh "./run.sh"
+             app.run("-d --name MyApp-${env.BUILD_ID} -p 8090:8090 -v ~/container_dir:/data")
 	}	    
          stage('*** Testing Stage by Postman ***'){
             echo "Testing Stage Starting"
