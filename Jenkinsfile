@@ -32,7 +32,7 @@ node {
         }
          stage('*** Stop Running Container ***'){
              echo "Stop Stage Starting" 
-             container.stop("CobApp-${env.BUILD_ID}")
+             container.stop()
 	}	    
 }
     catch (e) {
