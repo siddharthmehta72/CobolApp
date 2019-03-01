@@ -12,7 +12,7 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
             echo "Build Stage Starting"
-            app = docker.build("CobImage:${env.BUILD_ID}")
+            app = docker.build("cobimage:${env.BUILD_ID}")
         } 
 	 
          stage('*** Deploy to Container ***'){
