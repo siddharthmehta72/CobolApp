@@ -12,12 +12,12 @@ node {
         /* This builds the actual image; synonymous to
          * docker build on the command line */
             echo "Build Stage Starting"
-            app = docker.build("cobolpoc:${env.BUILD_ID}")
+            app = docker.build("CobImage:${env.BUILD_ID}")
         } 
 	 
          stage('*** Deploy to Container ***'){
              echo "Deploy Stage Starting" 
-             app.run("-d --name MyApp-${env.BUILD_ID} -p 8090:8090 -v ~/container_dir:/data")
+             app.run("-d --name CobApp-${env.BUILD_ID} -p 8090:8090 -v ~/container_dir:/data")
 	}	    
          stage('*** Testing Stage by Postman ***'){
             echo "Testing Stage Starting"
@@ -29,7 +29,11 @@ node {
                         currentBuild.result = 'FAILURE'
                     }
            junit 'newman.xml'
-        }	    
+        }
+         stage('*** Stop Running Container ***'){
+             echo "Stop Stage Starting" 
+             app.stop("CobApp-${env.BUILD_ID}")
+	}	    
 }
     catch (e) {
         // If there was an exception thrown, the build failed
