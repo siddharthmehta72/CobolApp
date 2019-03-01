@@ -17,7 +17,7 @@ node {
 	 
          stage('*** Deploy to Container ***'){
              echo "Deploy Stage Starting" 
-             app.run("-d --name CobApp-${env.BUILD_ID} -p 8090:8090 -v ~/container_dir:/data")
+             app.run("--name CobApp-${env.BUILD_ID} -p 8090:8090 -v ~/container_dir:/data")
 	}	    
          stage('*** Testing Stage by Postman ***'){
             echo "Testing Stage Starting"
