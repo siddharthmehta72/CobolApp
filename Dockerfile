@@ -1,5 +1,5 @@
 # ubuntu:xenial -> ubuntu 16.04
-FROM ubuntu:xenial
+FROM ubuntu:18.04
 
 MAINTAINER Ninja <ninja.devops@dev.com>
 
